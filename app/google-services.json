@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1066997326564",
+    "firebase_url": "https://hansungclass.firebaseio.com",
+    "project_id": "hansungclass",
+    "storage_bucket": "hansungclass.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066997326564:android:fb97eab9bbefc844",
+        "android_client_info": {
+          "package_name": "org.androidtown.hansungclass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066997326564-qqbi8ulgl1lh0ssjqvpr5s87fh13irij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.androidtown.hansungclass",
+            "certificate_hash": "3b0481ea96b7b773acadcec3e93c0b216c196bd5"
+          }
+        },
+        {
+          "client_id": "1066997326564-k49s46oj1nomkjmjjeoqgr3kl7sk1lic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDwSBwgAyLtAswBnQMGme4-6WE3Fh3zlI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066997326564-k49s46oj1nomkjmjjeoqgr3kl7sk1lic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
