@@ -36,13 +36,12 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-
-        email = (EditText)findViewById(R.id.email);
-        password = (EditText)findViewById(R.id.password);
+        email = (EditText) findViewById(R.id.email);
+        password = (EditText) findViewById(R.id.password);
         email_str = email.getText().toString();
         password_str = password.getText().toString();
 
-        signup = (Button)findViewById(R.id.signup);
+        signup = (Button) findViewById(R.id.signup);
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        login = (Button)findViewById(R.id.login);
+        login = (Button) findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,25 +62,25 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) { //인증상태가 불리면 불리는 콜백
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null) {
+                if (user != null) {
                     Log.i("yunjae", "signed_in");
-                }else {
+                } else {
                     Log.i("yunjae", "signed_out");
                 }
             }
         };
-
         Log.i("yunjae", "onCreate()");
+
     }
 
     private void loginAccount(String email, String password) {
 
-        if(TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(email)) {
             Log.i("yunjae", "eamil이 비어있음");
             Toast.makeText(this, "email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password)) {
             Log.i("yunjae", "password이 비어있음");
             Toast.makeText(this, "password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return;
@@ -94,11 +93,11 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.i("yunjae", "signInWithEmail:onComplete:");
 
-                        if(!task.isSuccessful()) {
+                        if (!task.isSuccessful()) {
                             Log.i("yunjae", "signInWithEmail:failed");
                             Toast.makeText(getApplicationContext(), "로그인 실패!",
                                     Toast.LENGTH_SHORT).show();
-                        }else if(task.isSuccessful()){
+                        } else if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "로그인 성공!",
                                     Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -112,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
+
 
     @Override
     protected void onStop() {

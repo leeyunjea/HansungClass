@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Adding Toolbar to the activity
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
         // Initializing the TabLayout
@@ -63,9 +62,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_item, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()) {
+            case R.id.logout:
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
-        FirebaseAuth.getInstance().signOut();
-        Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+        //FirebaseAuth.getInstance().signOut();
+        //Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
     }
 }
