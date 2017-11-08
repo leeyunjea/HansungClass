@@ -1,4 +1,4 @@
-package org.androidtown.hansungclass;
+package org.androidtown.hansungclass.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.androidtown.hansungclass.R;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

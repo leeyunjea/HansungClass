@@ -1,4 +1,4 @@
-package org.androidtown.hansungclass;
+package org.androidtown.hansungclass.Activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.androidtown.hansungclass.Adapter.TabPagerAdapter;
+import org.androidtown.hansungclass.R;
 
 public class MainActivity extends AppCompatActivity {
 
