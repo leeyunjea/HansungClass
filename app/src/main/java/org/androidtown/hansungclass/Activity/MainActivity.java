@@ -1,6 +1,7 @@
 package org.androidtown.hansungclass.Activity;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -85,9 +86,18 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private long lastTimeBackPressed;
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+        if(System.currentTimeMillis() - lastTimeBackPressed < 1500){
+            finish();
+            return;
+        }
+        Toast.makeText(this,"'뒤로'버튼을 한번 더 눌러 종료합니다.",Toast.LENGTH_SHORT);
+        lastTimeBackPressed = System.currentTimeMillis();
+
         //FirebaseAuth.getInstance().signOut();
         //Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
     }

@@ -33,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:drawableBottom="@color/color_Main"
                 android:ems="10"
+                android:text="yunjea0312@naver.com"
                 android:hint="email "
                 android:inputType="textPersonName" />
 
@@ -44,6 +45,7 @@
                 android:drawableBottom="@color/color_Main"
                 android:ems="10"
                 android:hint="password"
+                android:text="asdf1234"
                 android:inputType="textPassword" />
 
             <CheckBox

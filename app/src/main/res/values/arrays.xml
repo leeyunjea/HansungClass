@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="term">
+        <item>1학기</item>
+        <item>1학기 계절학기</item>
+        <item>2학기</item>
+        <item>2학기 계절학기</item>
+    </string-array>
+
+    <string-array name="year">
+        <item>2015년</item>
+        <item>2016년</item>
+        <item>2017년</item>
+        <item>2018년</item>
+    </string-array>
+
+    <string-array name="subjects">
+        <item>전공</item>
+        <item>일반교양</item>
+        <item>필수교양</item>
+    </string-array>
+
+    <string-array name="graduate">
+        <item>석사</item>
+        <item>박사</item>
+    </string-array>
+
+    <string-array name="major">
+        <item>Java</item>
+        <item>Web Programming</item>
+        <item>C++</item>
+        <item>Arduino</item>
+        <item>Network Programming</item>
+        <item>Android Programming</item>
+    </string-array>
+
+    <string-array name="general">
+        <item>기초공학수학</item>
+        <item>일반물리</item>
+        <item>일반화학</item>
+        <item>물리실험</item>
+
+    </string-array>
+
+    <string-array name="essential">
+        <item>영어커뮤니케이션</item>
+        <item>사고와표현</item>
+        <item>대학과지성</item>
+        <item>색과 디자인</item>
+        <item>공학윤리</item>
+    </string-array>
+    
+</resources>
