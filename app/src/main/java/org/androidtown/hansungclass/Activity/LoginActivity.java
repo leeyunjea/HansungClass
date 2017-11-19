@@ -1,6 +1,7 @@
 package org.androidtown.hansungclass.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,6 +32,10 @@ public class LoginActivity extends AppCompatActivity {
     EditText password;
     String email_str;
     String password_str;
+    CheckBox autoLogin;
+
+    SharedPreferences setting;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,19 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         email_str = email.getText().toString();
         password_str = password.getText().toString();
+
+        setting = getSharedPreferences("setting", 0);
+        editor = setting.edit();
+        autoLogin = (CheckBox)findViewById(R.id.autoLogin);
+
+        /*if(setting.getBoolean("chk_auto", false)) {
+            email.setText(setting.getString("ID", ""));
+            password.setText(setting.getString("PW", ""));
+            //autoLogin.setChecked(true);
+        }
+        else {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }*/
 
         signup = (Button) findViewById(R.id.signup);
         signup.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginAccount(String email, String password) {
 
+
         if (TextUtils.isEmpty(email)) {
             Log.i("yunjae", "eamil이 비어있음");
             Toast.makeText(this, "email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
@@ -92,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.i("yunjae", "signInWithEmail:onComplete:");
@@ -103,6 +124,18 @@ public class LoginActivity extends AppCompatActivity {
                         } else if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "로그인 성공!",
                                     Toast.LENGTH_SHORT).show();
+                            if(autoLogin.isChecked()) {
+                                editor.putString("ID", email_str);
+                                editor.putString("PW", password_str);
+                                editor.putBoolean("chk_auto", true);
+                                editor.commit();
+                                Log.i("yunjae", "eamil_str = " + email_str);
+                                Log.i("yunjae", "password_str = " + password_str);
+                                Log.i("yunjae", "editor에 저장");
+                            }else {
+                                editor.clear();
+                                editor.commit();
+                            }
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
                     }

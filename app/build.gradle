@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "org.androidtown.hansungclass"
-        minSdkVersion 21
+        minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -34,8 +34,14 @@ dependencies {
     compile 'com.google.gms:google-services:3.1.0'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.google.android.gms:play-services-maps:10.2.6'
+    compile 'com.google.android.gms:play-services-location:10.2.6'
+    compile 'pub.devrel:easypermissions:1.0.1'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 
