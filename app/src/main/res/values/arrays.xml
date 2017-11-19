@@ -3,15 +3,9 @@
 
     <string-array name="term">
         <item>1학기</item>
-        <item>1학기 계절학기</item>
-        <item>2학기</item>
-        <item>2학기 계절학기</item>
     </string-array>
 
     <string-array name="year">
-        <item>2015년</item>
-        <item>2016년</item>
-        <item>2017년</item>
         <item>2018년</item>
     </string-array>
 
@@ -21,18 +15,45 @@
         <item>필수교양</item>
     </string-array>
 
+    <string-array name="subjects2">
+        <item>박사</item>
+        <item>석사</item>
+    </string-array>
+
     <string-array name="graduate">
         <item>석사</item>
         <item>박사</item>
     </string-array>
 
-    <string-array name="major">
+    <string-array name="major123ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ">
         <item>Java</item>
         <item>Web Programming</item>
         <item>C++</item>
         <item>Arduino</item>
         <item>Network Programming</item>
         <item>Android Programming</item>
+    </string-array>
+
+    <string-array name="major">
+        <item>컴퓨터공학과</item>
+        <item>전자정보과</item>
+        <item>IT응용시스템공학과</item>
+    </string-array>
+
+    <string-array name="basic">
+        <item>기초교양</item>
+    </string-array>
+
+    <string-array name="essent">
+        <item>필수교양</item>
+    </string-array>
+
+    <string-array name="park">
+        <item>박사과정</item>
+    </string-array>
+
+    <string-array name="hak">
+        <item>석사과정</item>
     </string-array>
 
     <string-array name="general">
@@ -50,5 +71,5 @@
         <item>색과 디자인</item>
         <item>공학윤리</item>
     </string-array>
-    
+
 </resources>
