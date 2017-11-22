@@ -1,5 +1,6 @@
 package org.androidtown.hansungclass.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -36,20 +37,17 @@ public class LoginActivity extends AppCompatActivity {
 
     SharedPreferences setting;
     SharedPreferences.Editor editor;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
         mAuth = FirebaseAuth.getInstance();
-
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         email_str = email.getText().toString();
         password_str = password.getText().toString();
-
         setting = getSharedPreferences("setting", 0);
         editor = setting.edit();
         autoLogin = (CheckBox)findViewById(R.id.autoLogin);
@@ -95,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void loginAccount(String email, String password) {
+    private void loginAccount(final String email, String password) {
 
 
         if (TextUtils.isEmpty(email)) {
@@ -136,7 +134,12 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.clear();
                                 editor.commit();
                             }
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            pref = getSharedPreferences("ID", Activity.MODE_PRIVATE);
+                            editor = pref.edit();
+                            editor.putString("IDemail",email_str);
+                            editor.commit();
+                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(intent);
                         }
                     }
                 });

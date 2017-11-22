@@ -1,7 +1,10 @@
 package org.androidtown.hansungclass.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +26,14 @@ import java.util.List;
 
 public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHolder>{
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public  class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView coursesubject;
         public TextView coursecredit;
         public TextView coursedivide;
         public TextView courseprofessor;
         public TextView coursenclass;
         public TextView coursentime;
+        public int count = 30;
         private Context context;
         private Major major;
         private MajorReadapter majorReadapter;
@@ -53,16 +57,37 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
         @Override
         public void onClick(View v) {
 
-        }
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            HashMap<String,String> majorHashMap = new HashMap<String,String>();
+            majorHashMap.put("count",Integer.toString(count));
+            majorHashMap.put("credit",coursecredit.getText().toString());
+            majorHashMap.put("divide",coursedivide.getText().toString());
+            majorHashMap.put("nclass",coursenclass.getText().toString());
+            majorHashMap.put("ntime",coursentime.getText().toString());
+            majorHashMap.put("professor",courseprofessor.getText().toString());
+            majorHashMap.put("subject",coursesubject.getText().toString());
+
+
+            if(btn.getText().equals("신청")){
+        mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(majorHashMap);
+        btn.setText("취소");
+    }
+            else if(btn.getText().equals("취소")){
+        mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(null);
+        btn.setText("신청");
+    }
+}
     }
 
     private Context context;
     private List<Major> majorList;
     private Major major;
+    private String email;
 
-    public MajorReadapter(Context context, List<Major> majorList){
+    public MajorReadapter(Context context, List<Major> majorList, String email){
         this.context = context;
         this.majorList = majorList;
+        this.email = email;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package org.androidtown.hansungclass.ViewPager;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -171,8 +173,10 @@ public class EnrollmentFragment extends Fragment {
                             majorList.add(name);
                         }
                         majorRecyclerView = (RecyclerView)getView().findViewById(R.id.courseRecycleView);
-                        adapter = new MajorReadapter(getContext().getApplicationContext(),majorList);
-                        //majorListView.setAdapter(adapter);
+                        SharedPreferences pref = getActivity().getSharedPreferences("ID", Activity.MODE_PRIVATE);
+                        String name = pref.getString("IDemail","");
+                        String id[] = name.split("@");
+                        adapter = new MajorReadapter(getContext().getApplicationContext(),majorList,id[0]);
                         majorRecyclerView.setAdapter(adapter);
                         majorRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     }

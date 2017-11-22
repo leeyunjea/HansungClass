@@ -7,6 +7,7 @@ import android.util.Log;
  */
 
 public class Major {
+    public int count;
     public int credit;
     public String divide;
     public String nclass;
@@ -16,13 +17,22 @@ public class Major {
     public Major(){
 
     }
-    public Major(int credit,String divide, String nclass, String ntime, String professor, String subject) {
+    public Major(int count,int credit,String divide, String nclass, String ntime, String professor, String subject) {
+        this.count = count;
         this.credit = credit;
         this.divide = divide;
         this.nclass = nclass;
         this.ntime = ntime;
         this.professor = professor;
         this.subject = subject;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public int getCredit() {
