@@ -7,17 +7,18 @@ import android.util.Log;
  */
 
 public class Major {
-    public int count;
-    public int credit;
+    public String count;
+    public String credit;
     public String divide;
     public String nclass;
     public String ntime;
     public String professor;
     public String subject;
+
     public Major(){
 
     }
-    public Major(int count,int credit,String divide, String nclass, String ntime, String professor, String subject) {
+    public Major(String count,String credit,String divide, String nclass, String ntime, String professor, String subject) {
         this.count = count;
         this.credit = credit;
         this.divide = divide;
@@ -27,19 +28,19 @@ public class Major {
         this.subject = subject;
     }
 
-    public int getCount() {
+    public String getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(String count) {
         this.count = count;
     }
 
-    public int getCredit() {
+    public String getCredit() {
         return credit;
     }
 
-    public void setCredit(int credit) {
+    public void setCredit(String credit) {
         this.credit = credit;
     }
 

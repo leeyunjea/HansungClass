@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.androidtown.hansungclass.FirebaseClass.Major;
 import org.androidtown.hansungclass.R;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,11 +34,12 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
         public TextView courseprofessor;
         public TextView coursenclass;
         public TextView coursentime;
-        public int count = 30;
+        public String count = "30";
         private Context context;
         private Major major;
         private MajorReadapter majorReadapter;
         private DatabaseReference mDatabase;
+        private TextView cancel;
         private Button btn;
 
         public ViewHolder(Context context, View itemView,MajorReadapter majorReadapter){
@@ -59,7 +61,7 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
 
             mDatabase = FirebaseDatabase.getInstance().getReference();
             HashMap<String,String> majorHashMap = new HashMap<String,String>();
-            majorHashMap.put("count",Integer.toString(count));
+            majorHashMap.put("count",count);
             majorHashMap.put("credit",coursecredit.getText().toString());
             majorHashMap.put("divide",coursedivide.getText().toString());
             majorHashMap.put("nclass",coursenclass.getText().toString());
@@ -105,7 +107,7 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
         TextView subject = holder.coursesubject;
         subject.setText(major.getSubject());
         TextView credit = holder.coursecredit;
-        credit.setText(Integer.toString(major.getCredit()));
+        credit.setText(major.getCredit());
         TextView divide = holder.coursedivide;
         divide.setText(major.getDivide());
         TextView professor = holder.courseprofessor;

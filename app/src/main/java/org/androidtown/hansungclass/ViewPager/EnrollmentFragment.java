@@ -174,8 +174,8 @@ public class EnrollmentFragment extends Fragment {
                         }
                         majorRecyclerView = (RecyclerView)getView().findViewById(R.id.courseRecycleView);
                         SharedPreferences pref = getActivity().getSharedPreferences("ID", Activity.MODE_PRIVATE);
-                        String name = pref.getString("IDemail","");
-                        String id[] = name.split("@");
+                        String name1 = pref.getString("IDemail","");
+                        String id[] = name1.split("@");
                         adapter = new MajorReadapter(getContext().getApplicationContext(),majorList,id[0]);
                         majorRecyclerView.setAdapter(adapter);
                         majorRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

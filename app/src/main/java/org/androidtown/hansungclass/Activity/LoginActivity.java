@@ -74,7 +74,9 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 loginAccount(email.getText().toString(), password.getText().toString());
+
             }
         });
         mAuthListener = new FirebaseAuth.AuthStateListener() { //인증상태리스너
@@ -136,10 +138,11 @@ public class LoginActivity extends AppCompatActivity {
                             }
                             pref = getSharedPreferences("ID", Activity.MODE_PRIVATE);
                             editor = pref.edit();
-                            editor.putString("IDemail",email_str);
+                            editor.putString("IDemail",email);
                             editor.commit();
                             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                             startActivity(intent);
+
                         }
                     }
                 });
