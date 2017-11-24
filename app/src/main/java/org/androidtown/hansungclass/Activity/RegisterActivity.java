@@ -34,6 +34,9 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     Context context;
     Button submit;
+    private EditText name;
+    private EditText student_id;
+    private EditText grade;
 
 
     @Override
@@ -42,6 +45,11 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         context = this;
+
+        name = (EditText)findViewById(R.id.name);
+        student_id = (EditText)findViewById(R.id.student_id);
+        grade = (EditText)findViewById(R.id.grade);
+
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
 
