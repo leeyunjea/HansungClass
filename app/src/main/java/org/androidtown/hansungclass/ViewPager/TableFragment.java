@@ -2,9 +2,7 @@ package org.androidtown.hansungclass.ViewPager;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.health.SystemHealthManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,9 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.androidtown.hansungclass.Class.ArrayText;
 import org.androidtown.hansungclass.FirebaseClass.Major;
 import org.androidtown.hansungclass.R;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class TableFragment extends Fragment {
@@ -33,8 +29,8 @@ public class TableFragment extends Fragment {
     private String times;
     private String daynumber[];
     private String ntime[];
-    private int color = 0;
     private Random random;
+    public int i = 0;
     public TableFragment() {
     }
     @Override
@@ -50,20 +46,24 @@ public class TableFragment extends Fragment {
         mConditionRef.addValueEventListener(new ValueEventListener() {
             @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        //color = Color.rgb(214, 252, 251);
                         for(DataSnapshot child : dataSnapshot.getChildren()){
                             Major major = child.getValue(Major.class);
                             times = major.getNtime();
-                            random = new Random();
-                            color = Color.rgb(random.nextInt(255),random.nextInt(255),random.nextInt(255));
-                            findDay(times,color);
+                            //random = new Random();
+                            //color = Color.rgb(random.nextInt(214),random.nextInt(252),random.nextInt(251));
+                            findDay(times,major.getColor());
                     }
             }
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

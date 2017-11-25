@@ -1,12 +1,11 @@
 package org.androidtown.hansungclass.FirebaseClass;
 
-import android.util.Log;
-
 /**
  * Created by LG on 2017-11-12.
  */
 
 public class Major {
+    public int color;
     public String count;
     public String credit;
     public String divide;
@@ -18,7 +17,8 @@ public class Major {
     public Major(){
 
     }
-    public Major(String count,String credit,String divide, String nclass, String ntime, String professor, String subject) {
+    public Major(int color, String count,String credit,String divide, String nclass, String ntime, String professor, String subject) {
+        this.color = color;
         this.count = count;
         this.credit = credit;
         this.divide = divide;
@@ -27,6 +27,10 @@ public class Major {
         this.professor = professor;
         this.subject = subject;
     }
+
+    public int getColor() { return color; }
+
+    public void setColor(int color) { this.color = color; }
 
     public String getCount() {
         return count;

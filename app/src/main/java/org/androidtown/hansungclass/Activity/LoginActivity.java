@@ -92,7 +92,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         Log.i("yunjae", "onCreate()");
-
     }
 
     private void loginAccount(final String email, String password) {
