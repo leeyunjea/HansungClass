@@ -57,6 +57,7 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
             btn = (Button)itemView.findViewById(R.id.courseButton1);
             btn.setOnClickListener(this);
 
+
             colors[0] = Color.rgb(214, 252, 251);
             colors[1] = Color.rgb(252, 214, 248);
             colors[2] = Color.rgb(255, 185, 185);
@@ -73,7 +74,6 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
             colors[13] = Color.rgb(196, 196, 255);
             colors[14] = Color.rgb(230, 204, 204);
 
-            Log.i("yunjae", "color = " + colors[0]);
         }
 
         @Override
