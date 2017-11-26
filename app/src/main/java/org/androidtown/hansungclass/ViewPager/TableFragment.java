@@ -48,13 +48,13 @@ public class TableFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         //color = Color.rgb(214, 252, 251);
                         for(DataSnapshot child : dataSnapshot.getChildren()){
-                            Major major = child.getValue(Major.class);
-                            times = major.getNtime();
-                            //random = new Random();
-                            //color = Color.rgb(random.nextInt(214),random.nextInt(252),random.nextInt(251));
-                            findDay(times,major.getColor());
-                    }
+                Major major = child.getValue(Major.class);
+                times = major.getNtime();
+                //random = new Random();
+                //color = Color.rgb(random.nextInt(214),random.nextInt(252),random.nextInt(251));
+                findDay(times,major.getColor());
             }
+        }
 
 
 
