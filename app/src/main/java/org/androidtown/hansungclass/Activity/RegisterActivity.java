@@ -52,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         context = this;
+        System.out.println("제발.....제발....제발....제에발");
 
         name = (EditText)findViewById(R.id.name);
         student_id = (EditText)findViewById(R.id.student_id);
