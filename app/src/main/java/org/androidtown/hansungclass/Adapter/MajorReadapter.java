@@ -25,6 +25,7 @@ import java.util.List;
 
 public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHolder>{
     public static int i=0;
+    public static int total_credit;
 
     public  class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView coursesubject;
@@ -94,11 +95,15 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
             MajorReadapter.i++;
 
             if(btn.getText().equals("신청")){
-        mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(majorHashMap);
-        btn.setText("취소");
+                mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(majorHashMap);
+                //EnrollmentFragment.total_credit += parseInt((String) majorHashMap.get("credit"));
+                //Log.i("yunjae", " total_credit = " + EnrollmentFragment.total_credit);
+                        btn.setText("취소");
     }
             else if(btn.getText().equals("취소")){
         mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(null);
+                //EnrollmentFragment.total_credit -= parseInt((String) majorHashMap.get("credit"));
+                //Log.i("yunjae", " total_credit = " + EnrollmentFragment.total_credit);
         btn.setText("신청");
     }
 }

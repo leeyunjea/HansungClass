@@ -1,7 +1,6 @@
 package org.androidtown.hansungclass.Activity;
 
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -20,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    TabPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         // Creating TabPagerAdapter adapter
-        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -101,4 +101,10 @@ public class MainActivity extends AppCompatActivity {
         //FirebaseAuth.getInstance().signOut();
         //Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
     }
+
+   /* @Override
+    protected void onResume() {
+        super.onResume();
+        pagerAdapter.notifyDataSetChanged();
+    }*/
 }

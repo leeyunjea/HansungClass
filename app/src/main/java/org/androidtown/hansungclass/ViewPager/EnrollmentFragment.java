@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -54,6 +53,7 @@ public class EnrollmentFragment extends Fragment {
     private String courseUniversity = "";
     private DatabaseReference databaseReference;
     private DatabaseReference mConditionRef;
+    public static int total_credit=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -169,7 +169,7 @@ public class EnrollmentFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         majorList = new ArrayList<Major>();
                         for(DataSnapshot child : dataSnapshot.getChildren()){
-                            name = child.getValue(Major.class);
+                                name = child.getValue(Major.class);
                             majorList.add(name);
                         }
                         majorRecyclerView = (RecyclerView)getView().findViewById(R.id.courseRecycleView);
