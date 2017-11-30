@@ -15,12 +15,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCsmErwfQXNH0Ngy-AMJc7MFhkU5GvzHuk" />
 
-        <activity android:name=".Activity.LoginActivity">
-
-        </activity>
+        <activity android:name=".Activity.LoginActivity"></activity>
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.MapActivity"></activity>
+        <activity android:name=".Activity.MapActivity" />
         <activity android:name=".Activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.CourseMapActivity"></activity>
     </application>
 
 </manifest>

@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:layout_gravity="center_horizontal"
-            android:text="강의실"
             android:textSize="15dp" />
     </LinearLayout>
 

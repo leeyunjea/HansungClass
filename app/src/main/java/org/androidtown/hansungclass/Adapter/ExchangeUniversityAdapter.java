@@ -40,7 +40,7 @@ public class ExchangeUniversityAdapter extends RecyclerView.Adapter<ExchangeUniv
         @Override
         public void onClick(View v) { //위치 띄우기
             Intent intent = new Intent(context, MapActivity.class);
-            intent.putExtra("location", take_location.getText());
+            intent.putExtra("location", take.getText());
             context.startActivity(intent);
         }
     }
@@ -69,7 +69,7 @@ public class ExchangeUniversityAdapter extends RecyclerView.Adapter<ExchangeUniv
         TextView take = holder.take;
         take.setText(contact.getTake());
         TextView take_location = holder.take_location;
-        take_location.setText(contact.getTake_location());
+        //take_location.setText(contact.getTake_location());
         //take_location.setText("");
     }
 

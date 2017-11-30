@@ -121,7 +121,7 @@ public class LocationFragment extends Fragment {
                     Major major = child.getValue(Major.class);
                     subject = major.getSubject();
                     location = major.getNclass();
-                    contacts.add(i,new Contact(subject, "한성대학교"+location));
+                    contacts.add(i,new Contact(subject, location));
                     i++;
 
                     Log.i("yunjae", "i = "+ i);

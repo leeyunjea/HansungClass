@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.androidtown.hansungclass.Activity.MapActivity;
+import org.androidtown.hansungclass.Activity.CourseMapActivity;
 import org.androidtown.hansungclass.Class.Contact;
 import org.androidtown.hansungclass.R;
 
@@ -39,8 +39,8 @@ public class ContactsAdapater extends RecyclerView.Adapter<ContactsAdapater.View
 
         @Override
         public void onClick(View v) { //위치 띄우기
-            Intent intent = new Intent(context, MapActivity.class);
-            intent.putExtra("location", take_location.getText());
+            Intent intent = new Intent(context, CourseMapActivity.class);
+            intent.putExtra("location", "한성대학교" + take_location.getText());
             context.startActivity(intent);
         }
     }
