@@ -13,6 +13,10 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
     // Count number of tabs
     private int tabCount;
+    private HomeFragment homeFragment = new HomeFragment();
+    private EnrollmentFragment enrollmentFragment = new EnrollmentFragment();
+    private TableFragment tableFragment = new TableFragment();
+    private LocationFragment locationFragment = new LocationFragment();
 
     public TabPagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
@@ -25,16 +29,12 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
         // Returning the current tabs
         switch (position) {
             case 0:
-                HomeFragment homeFragment = new HomeFragment();
                 return homeFragment;
             case 1:
-                EnrollmentFragment enrollmentFragment = new EnrollmentFragment();
                 return enrollmentFragment;
             case 2:
-                TableFragment tableFragment = new TableFragment();
                 return tableFragment;
             case 3:
-                LocationFragment locationFragment = new LocationFragment();
                 return locationFragment;
             default:
                 return null;
