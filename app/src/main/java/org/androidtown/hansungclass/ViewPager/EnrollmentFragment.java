@@ -49,6 +49,7 @@ public class EnrollmentFragment extends Fragment {
     private RecyclerView majorRecyclerView;
     private MajorReadapter adapter;
     private ArrayList<Major> majorList;
+
     private Major name;
     private String courseUniversity = "";
     private DatabaseReference databaseReference;

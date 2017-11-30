@@ -75,7 +75,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void toAddress() {
         try {
             Geocoder geocoder = new Geocoder(this, Locale.KOREA);
-            List<Address> addresses = geocoder.getFromLocationName("한성대학교"+take_location, 1);
+            List<Address> addresses = geocoder.getFromLocationName(take_location, 1);
             if (addresses.size() > 0) {
                 Log.i("yunjae", "address.size>0");
                 Address bestResult = (Address) addresses.get(0);
@@ -94,7 +94,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         gmap.clear();
         gmap.addMarker(new MarkerOptions().position(LOC).title(take_location));
         Log.i("yunjae", "addMarker");
-        gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(LOC, 20));
+        gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(LOC, 15));
         gmap.setOnMarkerClickListener(this);
     }
 

@@ -1,6 +1,7 @@
 package org.androidtown.hansungclass.ViewPager;
 
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.androidtown.hansungclass.Adapter.HomeListAdapter;
 import org.androidtown.hansungclass.Adapter.MajorReadapter;
+import org.androidtown.hansungclass.FirebaseClass.Major;
 import org.androidtown.hansungclass.R;
 
 import java.util.Calendar;
@@ -30,6 +38,11 @@ public class HomeFragment extends Fragment {
     private Date date;
     public static SharedPreferences sf = null;
     public static SharedPreferences.Editor editor = null;
+    private Major major;
+    private DatabaseReference mConditionRef;
+    private DatabaseReference databaseReference;
+    private String time;
+    private String subject;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -46,10 +59,13 @@ public class HomeFragment extends Fragment {
         day = (TextView)view.findViewById(R.id.day);
         listView = (ListView)view.findViewById(R.id.listView);
 
-        adapter = new HomeListAdapter(getContext());
+        adapter = new HomeListAdapter(getContext(), R.layout.listhome_item);
+        //listView.setAdapter(adapter);
 
         total_credit.setText(MajorReadapter.total_credit + "점");
-        day.setText(doDayOfWeek());
+        day.setText(doDayOfWeek() + "요일");
+
+        getTodayData();
 
         return view;
     }
@@ -60,15 +76,46 @@ public class HomeFragment extends Fragment {
 
         int nWeek = cal.get(Calendar.DAY_OF_WEEK);
         switch(nWeek) {
-            case 1: day = "일요일"; break;
-            case 2: day = "월요일"; break;
-            case 3: day = "화요일"; break;
-            case 4: day = "수요일"; break;
-            case 5: day = "목요일"; break;
-            case 6: day = "금요일"; break;
-            case 7: day = "토요일"; break;
+            case 1: day = "일"; break;
+            case 2: day = "월"; break;
+            case 3: day = "화"; break;
+            case 4: day = "수"; break;
+            case 5: day = "목"; break;
+            case 6: day = "금"; break;
+            case 7: day = "토"; break;
         }
         return day;
+    }
+
+    public void getTodayData() {
+        SharedPreferences pref = getActivity().getSharedPreferences("ID", Activity.MODE_PRIVATE);
+        String name = pref.getString("IDemail","");
+        String id[] = name.split("@");
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        mConditionRef = databaseReference.child("파이어베이스").child("강의").child(id[0]);
+        mConditionRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    Major major = child.getValue(Major.class);
+                    time = major.getNtime();
+                    subject = major.getSubject() + "\n" + major.getProfessor() + "\n" + major.getNclass();
+                    String str[] = major.getNtime().split(" ");
+                    if(str[0].equals(doDayOfWeek())) {
+                        adapter.addItem(time, subject);
+                        listView.setAdapter(adapter);
+                    }
+                }
+            }
+
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
