@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1066997326564-vp7j3s0eq4cberqbs97mhusnmich1875.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.androidtown.hansungclass",
+            "certificate_hash": "352be7afd3c0477d5f08a58cfa4f291c08de7a92"
+          }
+        },
+        {
           "client_id": "1066997326564-qqbi8ulgl1lh0ssjqvpr5s87fh13irij.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

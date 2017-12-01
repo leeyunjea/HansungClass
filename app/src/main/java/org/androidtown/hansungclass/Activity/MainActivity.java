@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.androidtown.hansungclass.Adapter.TabPagerAdapter;
+import org.androidtown.hansungclass.Class.NotificationService;
 import org.androidtown.hansungclass.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     TabPagerAdapter pagerAdapter;
+    private NotificationService notificationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Toast.makeText(getApplicationContext(), "Service시작",Toast.LENGTH_SHORT).show();
+       /* notificationService = new NotificationService();
+        Intent intent = new Intent(MainActivity.this, notificationService.getClass());
+        intent.putExtra("course", "아아아");
+        intent.putExtra("location", "오오오");
+        intent.putExtra("time", "0");
+        startService(intent);*/
+
     }
 
     @Override
@@ -97,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
         }
         Toast.makeText(this,"'뒤로'버튼을 한번 더 눌러 종료합니다.",Toast.LENGTH_SHORT);
         lastTimeBackPressed = System.currentTimeMillis();
+
+
 
         //FirebaseAuth.getInstance().signOut();
         //Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();

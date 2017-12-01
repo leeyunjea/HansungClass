@@ -2,9 +2,11 @@ package org.androidtown.hansungclass.ViewPager;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.androidtown.hansungclass.Adapter.HomeListAdapter;
 import org.androidtown.hansungclass.Adapter.MajorReadapter;
+import org.androidtown.hansungclass.Class.NotificationService;
 import org.androidtown.hansungclass.FirebaseClass.Major;
 import org.androidtown.hansungclass.R;
 
@@ -43,6 +46,8 @@ public class HomeFragment extends Fragment {
     private DatabaseReference databaseReference;
     private String time;
     private String subject;
+    private String ntime;
+    private NotificationService notificationService;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -101,10 +106,15 @@ public class HomeFragment extends Fragment {
                     Major major = child.getValue(Major.class);
                     time = major.getNtime();
                     subject = major.getSubject() + "\n" + major.getProfessor() + "\n" + major.getNclass();
+                    String sub = major.getSubject();
+                    String lo = major.getNclass();
+                    ntime = major.getNtime();
                     String str[] = major.getNtime().split(" ");
                     if(str[0].equals(doDayOfWeek())) {
                         adapter.addItem(time, subject);
                         listView.setAdapter(adapter);
+                        todayNotifyAlarm(ntime, sub, lo);
+                        Log.i("yunjae", "ntime = " + ntime + "sub = " + sub + "lo = " +lo);
                     }
                 }
             }
@@ -114,6 +124,57 @@ public class HomeFragment extends Fragment {
 
             }
         });
+    }
+
+    public void todayNotifyAlarm(String ntime, String subject, String location) {
+        String arr[] = ntime.split(" ");
+        String time = arr[1];
+        String times[] = time.split(",");
+
+        Log.i("yunjae", "time="+times[0]);
+
+        switch (times[0]) {
+            case "0":
+                Log.i("yunjae", "000000000000000");
+                notificationService = new NotificationService();
+                Intent intent0 = new Intent(getContext(), notificationService.getClass());
+                intent0.putExtra("course", subject);
+                intent0.putExtra("location", location);
+                intent0.putExtra("time", times[0]);
+                getContext().startService(intent0);
+                break;
+            case "1":
+                Log.i("yunjae", "11111111111111");
+                notificationService = new NotificationService();
+                Intent intent1 = new Intent(getContext(), notificationService.getClass());
+                intent1.putExtra("course", subject);
+                intent1.putExtra("location", location);
+                intent1.putExtra("time", times[0]);
+                getContext().startService(intent1);
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+            case "4":
+                break;
+            case "5":
+                break;
+            case "6":
+                break;
+            case "7":
+                break;
+            case "8":
+                break;
+            case "9":
+                break;
+            case "10":
+                break;
+            case "11":
+                break;
+            case "12":
+                break;
+        }
     }
 
 
