@@ -1,7 +1,6 @@
 package org.androidtown.hansungclass.Class;
 
 import android.os.Handler;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,7 +17,6 @@ public class ServiceThread extends Thread {
     public ServiceThread(Handler handler, String time) {
         this.handler = handler;
         this.time = time;
-        Log.i("yunjae", " time = " + time);
     }
 
     public void stopForever() {
@@ -28,12 +26,6 @@ public class ServiceThread extends Thread {
     }
 
     public void run() {
-        /*while(isRun) {
-            handler.sendEmptyMessage(0); //스레드에 있는 핸들러에게 메세지를 보냄
-            try {
-                Thread.sleep(10000);
-            }catch (Exception e) {}
-        }*/
         while(isRun) {
             long now = System.currentTimeMillis();
             Date date = new Date(now);

@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.androidtown.hansungclass.Activity.MainActivity;
 import org.androidtown.hansungclass.R;
@@ -66,7 +65,6 @@ public class NotificationService extends Service {
         public MyServiceHandler(String course, String location) {
             this.course = course;
             this.location = location;
-            Log.i("yunjae", "MyServiceHandler course = " + course + "location = " + location);
         }
 
         @Override
@@ -82,8 +80,6 @@ public class NotificationService extends Service {
 
             notificationManager.notify(777, notification);
 
-            Log.i("yunjae", "handleMessage course = " + course + "location = " + location);
-            Toast.makeText(NotificationService.this, "뜸?", Toast.LENGTH_SHORT).show();
         }
     }
 }
