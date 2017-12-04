@@ -75,17 +75,6 @@ public class EnrollmentFragment extends Fragment {
         termSpinner = (Spinner) getView().findViewById(R.id.termSpinner);
         areaSpinner = (Spinner) getView().findViewById(R.id.areaSpinner);
         subjectSpinner = (Spinner) getView().findViewById(R.id.majorSpiiner); //여기서 쓰이는데
-        /*handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                Bundle bundle = msg.getData();
-                msg.getData().getString("mondata").equals("월요일1교시면"){
-                    ((TextView)getView().findViewById(R.id.monday1)).setText(msg.getData().getString("mondayData"));
-                }
-            }
-        };
-        */
-
         courseGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
@@ -189,9 +178,8 @@ public class EnrollmentFragment extends Fragment {
                         majorRecyclerView = (RecyclerView)getView().findViewById(R.id.courseRecycleView);
                         SharedPreferences pref = getActivity().getSharedPreferences("ID", Activity.MODE_PRIVATE);
                         String name1 = pref.getString("IDemail","");
-
                         String id[] = name1.split("@");
-                        adapter = new MajorReadapter(getContext().getApplicationContext(),majorList,id[0]);// 간쥼 어댑터?ㅇㅇ 웅
+                        adapter = new MajorReadapter(getContext().getApplicationContext(),majorList,id[0]);
                         majorRecyclerView.setAdapter(adapter);
                         majorRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     }
