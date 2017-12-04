@@ -27,17 +27,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    Button signup;
-    Button login;
-    EditText email;
-    EditText password;
-    String email_str;
-    String password_str;
-    CheckBox autoLogin;
+    private Button signup;
+    private Button login;
+    private EditText email;
+    private EditText password;
+    private String email_str;
+    private String password_str;
+    private CheckBox autoLogin;
 
-    SharedPreferences setting;
-    SharedPreferences.Editor editor;
-    SharedPreferences pref;
+    private SharedPreferences setting;
+    private SharedPreferences.Editor editor;
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

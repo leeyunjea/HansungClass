@@ -11,17 +11,19 @@ public class Login {
     private String s_grade;
     private String s_name;
     private String student_id;
+    private int credit;
 
     public Login(){
 
     }
 
-    public Login(String email,String password,String s_grade,String s_name, String student_id){
+    public Login(String email,String password,String s_grade,String s_name, String student_id,int credit){
         this.email = email;
         this.password = password;
         this.s_grade = s_grade;
         this.s_name = s_name;
         this.student_id = student_id;
+        this.credit = credit;
     }
 
     public void setEmail(String email) {
@@ -62,5 +64,13 @@ public class Login {
 
     public String getStudent_id() {
         return student_id;
+    }
+
+    public void setCredit(int credit) {
+        this.credit = credit;
+    }
+
+    public int getCredit() {
+        return credit;
     }
 }

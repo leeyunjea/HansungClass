@@ -11,7 +11,7 @@ import org.androidtown.hansungclass.R;
 final public class ArrayText {
 
     public static final int[] MONTEXT = {
-            R.id.monday0,
+            R.id.monday0, //월 0
             R.id.monday1,
             R.id.monday2,
             R.id.monday3,

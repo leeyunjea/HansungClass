@@ -3,6 +3,8 @@ package org.androidtown.hansungclass.ViewPager;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,6 +57,7 @@ public class EnrollmentFragment extends Fragment {
     private String courseUniversity = "";
     private DatabaseReference databaseReference;
     private DatabaseReference mConditionRef;
+    private Handler handler;
     public static int total_credit=0;
 
     @Override
@@ -70,7 +74,17 @@ public class EnrollmentFragment extends Fragment {
         yearSpinner = (Spinner) getView().findViewById(R.id.yearSpinner);
         termSpinner = (Spinner) getView().findViewById(R.id.termSpinner);
         areaSpinner = (Spinner) getView().findViewById(R.id.areaSpinner);
-        subjectSpinner = (Spinner) getView().findViewById(R.id.majorSpiiner);
+        subjectSpinner = (Spinner) getView().findViewById(R.id.majorSpiiner); //여기서 쓰이는데
+        /*handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                Bundle bundle = msg.getData();
+                msg.getData().getString("mondata").equals("월요일1교시면"){
+                    ((TextView)getView().findViewById(R.id.monday1)).setText(msg.getData().getString("mondayData"));
+                }
+            }
+        };
+        */
 
         courseGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -116,7 +130,6 @@ public class EnrollmentFragment extends Fragment {
 
                                     }
                                 });
-
                             } else if (areaSpinner.getItemAtPosition(position).toString().equals("일반교양")) {
                                 mConditionRef = databaseReference.child("university").child("2018").child("1").child("교양").child("기초교양");
                                 subjectAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.basic, android.R.layout.simple_dropdown_item_1line);
@@ -178,7 +191,7 @@ public class EnrollmentFragment extends Fragment {
                         String name1 = pref.getString("IDemail","");
 
                         String id[] = name1.split("@");
-                        adapter = new MajorReadapter(getContext().getApplicationContext(),majorList,id[0]);
+                        adapter = new MajorReadapter(getContext().getApplicationContext(),majorList,id[0]);// 간쥼 어댑터?ㅇㅇ 웅
                         majorRecyclerView.setAdapter(adapter);
                         majorRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     }
