@@ -70,6 +70,7 @@ public class ContactsAdapater extends RecyclerView.Adapter<ContactsAdapater.View
         take.setText(contact.getTake());
         TextView take_location = holder.take_location;
         take_location.setText(contact.getTake_location());
+        //asdokaosdk
     }
 
     @Override
