@@ -30,38 +30,36 @@ public class TableFragment extends Fragment {
     private String daynumber[];
     private String ntime[];
     private String ntimer[];
+    private String name;
     private Random random;
     public int i = 0;
     private int number;
     public TableFragment() {
     }
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_table, container, false);
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         SharedPreferences pref = getActivity().getSharedPreferences("ID", Activity.MODE_PRIVATE);
-        String name = pref.getString("IDemail","");
+        name = pref.getString("IDemail","");
         String id[] = name.split("@");
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         mConditionRef = databaseReference.child("파이어베이스").child("강의").child(id[0]);
         mConditionRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot child : dataSnapshot.getChildren()){
-                        Major major = child.getValue(Major.class);
-                        findDay(major,major.getColor());
-                    }
-        }
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    Major major = child.getValue(Major.class);
+                    findDay(major,major.getColor());
+                }
+            }
 
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
     }
@@ -71,8 +69,7 @@ public class TableFragment extends Fragment {
         daynumber = nntime.split(" "); //월   1,2,3
         ntime = daynumber[1].split(","); // 1 2 3
 
-        if(daynumber[0].equals("월"))
-        {
+        if(daynumber[0].equals("월")) {
             for(int i=0; i<ArrayText.MONTEXT.length; i++){
                 TextView md = (TextView)this.getView().findViewById(ArrayText.MONTEXT[i]);
                 if(md.getText().toString().startsWith("월")){
@@ -135,30 +132,28 @@ public class TableFragment extends Fragment {
     }
 
     public void resetTime(TextView tv,Major major){
-
-            String m = major.getNtime();
-            System.out.println("resetTime " + m);
-
+        String m = major.getNtime();
+        System.out.println("resetTime " + m);
     }
 
-        public void findntime(TextView tv,String number,String ntime,int color1,Major major){
-            String[] timer = number.split(",");
-            for(int i=0;i<timer.length; i++){
-                if(timer[i].equals(ntime)){
-                    if(i==0){
-                        tv.setText(major.getSubject() + "(" + major.getDivide() + ")");
-                        tv.setTextColor(Color.BLACK);
-                    }
-                    else if(i==1){
-                        tv.setText(major.getProfessor());
-                        tv.setTextColor(Color.BLACK);
-                    }
-                    else if(i==2){
-                        tv.setText(major.getNclass());
-                        tv.setTextColor(Color.BLACK);
-                    }
-                    tv.setBackgroundColor(color1);
+    public void findntime(TextView tv,String number,String ntime,int color1,Major major){
+        String[] timer = number.split(",");
+        for(int i=0;i<timer.length; i++){
+            if(timer[i].equals(ntime)){
+                if(i==0){
+                    tv.setText(major.getSubject() + "(" + major.getDivide() + ")");
+                    tv.setTextColor(Color.BLACK);
                 }
+                else if(i==1){
+                    tv.setText(major.getProfessor());
+                    tv.setTextColor(Color.BLACK);
+                }
+                else if(i==2){
+                    tv.setText(major.getNclass());
+                    tv.setTextColor(Color.BLACK);
+                }
+                tv.setBackgroundColor(color1);
+            }
         }
     }
 }

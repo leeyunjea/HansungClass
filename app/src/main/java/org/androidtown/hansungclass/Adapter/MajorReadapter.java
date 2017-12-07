@@ -2,9 +2,6 @@ package org.androidtown.hansungclass.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,13 +16,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.androidtown.hansungclass.Class.ArrayText;
 import org.androidtown.hansungclass.FirebaseClass.Major;
 import org.androidtown.hansungclass.R;
-import org.androidtown.hansungclass.ViewPager.TableFragment;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -35,7 +27,7 @@ import static java.lang.Integer.parseInt;
 
 /**
  * Created by hscom-019 on 2017-11-19.
- */
+         */
 
 public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHolder>{
     public static int i=0;
@@ -78,6 +70,26 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
             coursenclass = (TextView)itemView.findViewById(R.id.courseclass);
             coursentime = (TextView)itemView.findViewById(R.id.coursetime);
             btn = (Button)itemView.findViewById(R.id.courseButton1);
+
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mConditionRef = mDatabase.child("파이어베이스").child("강의").child(email);
+            mConditionRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot child : dataSnapshot.getChildren()){
+                        major = child.getValue(Major.class);
+                        if(coursesubject.getText().equals(major.getSubject())){
+                            btn.setText("취소");
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
             btn.setOnClickListener(this);
             colors[0] = Color.rgb(214, 252, 251);
             colors[1] = Color.rgb(252, 214, 248);
@@ -103,15 +115,15 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
             majorHashMap.put("color", colors[MajorReadapter.i]);
             majorHashMap.put("count",count);
             majorHashMap.put("credit",coursecredit.getText().toString());
+            majorHashMap.put("professor",courseprofessor.getText().toString());
             majorHashMap.put("divide",coursedivide.getText().toString());
             majorHashMap.put("nclass",coursenclass.getText().toString());
             majorHashMap.put("ntime",coursentime.getText().toString());
-            majorHashMap.put("professor",courseprofessor.getText().toString());
             majorHashMap.put("subject",coursesubject.getText().toString());
             Log.i("yunjae", "onClick i = " + MajorReadapter.i);
             timecount = 0;
             timer = majorHashMap.get("ntime").toString();
-            datadays = timer.split(" ");
+            datadays = timer.split(" "); //월 1,2,3
             check = true;
             mConditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -119,7 +131,7 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
                     for(DataSnapshot child : dataSnapshot.getChildren()){
                         major = child.getValue(Major.class);
                         String ntime = major.getNtime();
-                        String firedataday[] = ntime.split(" ");
+                        String firedataday[] = ntime.split(" "); //월 1,2,3
                         if(firedataday[0].equals(datadays[0])){
                             String firenumber[] = firedataday[1].split(",");
                             String datanumber[] = datadays[1].split(",");
@@ -127,36 +139,42 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
                                 for(int j=0;j<datanumber.length;j++){
                                     if(firenumber[i].equals(datanumber[j])){
                                         timecount++;
+                                        check = false;
                                     }
                                 }
                             }
                         }
                     }
-                    if(timecount != 0) {
-                        check = false;
-                    }
                     MajorReadapter.i++;
-                    if(check == true){
+                    /*
+                       총학점 20학점 넘기면 수강신청 안댐!!
+                       총수강인원이 30명을 넘을시 수강신청 안댐!
+                     */
+                    if(timecount != 0 && btn.getText().equals("신청")){
+                        Toast.makeText(context,"이미 수강신청을 한 과목입니다.",Toast.LENGTH_LONG).show();
+                    }
+                    else if(check == true){
+                        Toast.makeText(context,"수강신청 성공!",Toast.LENGTH_LONG).show();
                         mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(majorHashMap);
                         total_credit += parseInt((String) majorHashMap.get("credit"));
                         Log.i("yunjae", " total_credit = " + total_credit);
+                        btn.setText("취소");
                     }
-                    else if(check == false){
-                        mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(null);
-                        total_credit -= parseInt((String) majorHashMap.get("credit"));
-                        Log.i("yunjae", " total_credit = " + total_credit);
-                        check = true;
+                    else if(check == false && btn.getText().equals("취소")){
+                            Toast.makeText(context, "취소되었습니다.", Toast.LENGTH_LONG).show();
+                            mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(null);
+                            total_credit -= parseInt((String) majorHashMap.get("credit"));
+                            Log.i("yunjae", " total_credit = " + total_credit);
+                            btn.setText("신청");
+                            check = true;
                     }
-
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
                 }
             });
         }
     }
-
     private Context context;
     private List<Major> majorList;
     private Major major;

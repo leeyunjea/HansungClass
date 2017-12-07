@@ -43,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText name;
     private EditText student_id;
     private EditText grade;
+    private String u_credit="0";
     private boolean check;
 
 
@@ -101,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         }
                         else {
-                            createAccount(email.getText().toString(), password.getText().toString(),grade.getText().toString(),name.getText().toString(),student_id.getText().toString());
+                            createAccount(email.getText().toString(), password.getText().toString(),grade.getText().toString(),name.getText().toString(),student_id.getText().toString(),u_credit);
                         }
                     }
 
@@ -118,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
     //private FirebaseAuth.AuthStateListener
 
-    private void createAccount(final String email, final String password,final String grade,final String name,final String student_id) {
+    private void createAccount(final String email, final String password,final String grade,final String name,final String student_id,final String u_credit) {
         if(!isValidEmail(email)) {
             Toast.makeText(context, "Email is not valid", Toast.LENGTH_LONG).show();
             return;
@@ -144,6 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     register.put("student_id", student_id);
                                     register.put("s_name", name);
                                     register.put("s_grade", grade);
+                                    register.put("u_credit",u_credit);
                                     String emails[] = email.split("@");
                                     databaseReference.child("파이어베이스").child("USER_INFO").child(emails[0]).setValue(register);
                                     finish();
