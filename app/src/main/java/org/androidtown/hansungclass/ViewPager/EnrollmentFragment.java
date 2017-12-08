@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.androidtown.hansungclass.Adapter.MajorReadapter;
+import org.androidtown.hansungclass.FirebaseClass.Login;
 import org.androidtown.hansungclass.FirebaseClass.Major;
 import org.androidtown.hansungclass.R;
 
@@ -51,6 +52,7 @@ public class EnrollmentFragment extends Fragment {
     private Spinner subjectSpinner;
     private RecyclerView majorRecyclerView;
     private MajorReadapter adapter;
+    private String id[];
     private ArrayList<Major> majorList;
 
     private Major name;
@@ -59,6 +61,8 @@ public class EnrollmentFragment extends Fragment {
     private DatabaseReference mConditionRef;
     private Handler handler;
     public static int total_credit=0;
+    private int credit;
+    private SharedPreferences pref;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -175,10 +179,11 @@ public class EnrollmentFragment extends Fragment {
                                 name = child.getValue(Major.class);
                             majorList.add(name);
                         }
+
                         majorRecyclerView = (RecyclerView)getView().findViewById(R.id.courseRecycleView);
-                        SharedPreferences pref = getActivity().getSharedPreferences("ID", Activity.MODE_PRIVATE);
+                        pref = getActivity().getSharedPreferences("ID", Activity.MODE_PRIVATE);
                         String name1 = pref.getString("IDemail","");
-                        String id[] = name1.split("@");
+                        id = name1.split("@");
                         adapter = new MajorReadapter(getContext().getApplicationContext(),majorList,id[0]);
                         majorRecyclerView.setAdapter(adapter);
                         majorRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

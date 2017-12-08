@@ -1,6 +1,7 @@
 package org.androidtown.hansungclass.Activity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -43,8 +44,10 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText name;
     private EditText student_id;
     private EditText grade;
-    private String u_credit="0";
+    private int u_credit = 0;
     private boolean check;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -119,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
     //private FirebaseAuth.AuthStateListener
 
-    private void createAccount(final String email, final String password,final String grade,final String name,final String student_id,final String u_credit) {
+    private void createAccount(final String email, final String password,final String grade,final String name,final String student_id,final int u_credit) {
         if(!isValidEmail(email)) {
             Toast.makeText(context, "Email is not valid", Toast.LENGTH_LONG).show();
             return;
@@ -135,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                             public void onComplete(@NonNull final Task<AuthResult> task) {
                                 Log.i("yunjae", "onComplete()");
-                                HashMap<String,String> register = new HashMap<>();
+                                HashMap<String,Object> register = new HashMap<>();
                                 if(!task.isSuccessful()) {
                                     Toast.makeText(context, "동일한 ID가 있습니다.!!", Toast.LENGTH_LONG).show();
                                 }

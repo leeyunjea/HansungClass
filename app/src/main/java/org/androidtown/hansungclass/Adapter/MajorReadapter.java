@@ -16,11 +16,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.androidtown.hansungclass.FirebaseClass.Login;
 import org.androidtown.hansungclass.FirebaseClass.Major;
 import org.androidtown.hansungclass.R;
+
+import java.net.Inet4Address;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static java.lang.Integer.parseInt;
@@ -31,7 +36,6 @@ import static java.lang.Integer.parseInt;
 
 public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHolder>{
     public static int i=0;
-    public static int total_credit=0;
     private static TextView md;
 
     public  class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -58,6 +62,9 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
         private String timer;
         private boolean check;
         private HashMap<String, Object> majorHashMap;
+        private Map<String,Object> changedata;
+        private int u_credit;
+        private int total;
 
         public ViewHolder(Context context, View itemView,MajorReadapter majorReadapter){
             super(itemView);
@@ -70,7 +77,6 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
             coursenclass = (TextView)itemView.findViewById(R.id.courseclass);
             coursentime = (TextView)itemView.findViewById(R.id.coursetime);
             btn = (Button)itemView.findViewById(R.id.courseButton1);
-
             mDatabase = FirebaseDatabase.getInstance().getReference();
             mConditionRef = mDatabase.child("파이어베이스").child("강의").child(email);
             mConditionRef.addValueEventListener(new ValueEventListener() {
@@ -83,13 +89,26 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
                         }
                     }
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
                 }
             });
 
+            mDatabase.child("파이어베이스").child("USER_INFO").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot child : dataSnapshot.getChildren()){
+                        Login login = child.getValue(Login.class);
+                        String name[] = login.getEmail().split("@");
+                        if(name[0].equals(email)){
+                            total = login.getU_credit();
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
             btn.setOnClickListener(this);
             colors[0] = Color.rgb(214, 252, 251);
             colors[1] = Color.rgb(252, 214, 248);
@@ -121,6 +140,7 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
             majorHashMap.put("ntime",coursentime.getText().toString());
             majorHashMap.put("subject",coursesubject.getText().toString());
             Log.i("yunjae", "onClick i = " + MajorReadapter.i);
+
             timecount = 0;
             timer = majorHashMap.get("ntime").toString();
             datadays = timer.split(" "); //월 1,2,3
@@ -150,29 +170,38 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
                        총학점 20학점 넘기면 수강신청 안댐!!
                        총수강인원이 30명을 넘을시 수강신청 안댐!
                      */
+
                     if(timecount != 0 && btn.getText().equals("신청")){
-                        Toast.makeText(context,"이미 수강신청을 한 과목입니다.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"같은 시간대를 선택한 과목이 있습니다.",Toast.LENGTH_LONG).show();
                     }
-                    else if(check == true){
+                    else if(check == true && btn.getText().equals("신청")){
                         Toast.makeText(context,"수강신청 성공!",Toast.LENGTH_LONG).show();
+                        changedata = new HashMap<String,Object>();
+                        total += Integer.parseInt(coursecredit.getText().toString());
+                        changedata.put("u_credit",total);
+                        mDatabase.child("파이어베이스").child("USER_INFO").child(email).updateChildren(changedata);
                         mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(majorHashMap);
-                        total_credit += parseInt((String) majorHashMap.get("credit"));
-                        Log.i("yunjae", " total_credit = " + total_credit);
                         btn.setText("취소");
                     }
                     else if(check == false && btn.getText().equals("취소")){
-                            Toast.makeText(context, "취소되었습니다.", Toast.LENGTH_LONG).show();
-                            mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(null);
-                            total_credit -= parseInt((String) majorHashMap.get("credit"));
-                            Log.i("yunjae", " total_credit = " + total_credit);
-                            btn.setText("신청");
-                            check = true;
+                        Toast.makeText(context, "수강신청 취소!", Toast.LENGTH_LONG).show();
+                        changedata = new HashMap<String,Object>();
+                        total -= Integer.parseInt(coursecredit.getText().toString());
+                        changedata.put("u_credit",total);
+                        mDatabase.child("파이어베이스").child("USER_INFO").child(email).updateChildren(changedata);
+                        mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(null);
+                        btn.setText("신청");
+                        check = true;
                     }
+
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
             });
+
+
+
         }
     }
     private Context context;

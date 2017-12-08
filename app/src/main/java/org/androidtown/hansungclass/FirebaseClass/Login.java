@@ -11,13 +11,13 @@ public class Login {
     private String s_grade;
     private String s_name;
     private String student_id;
-    private String u_credit;
+    private int u_credit;
 
     public Login(){
 
     }
 
-    public Login(String email,String password,String s_grade,String s_name, String student_id,String u_credit){
+    public Login(String email,String password,String s_grade,String s_name, String student_id,int u_credit){
         this.email = email;
         this.password = password;
         this.s_grade = s_grade;
@@ -66,11 +66,11 @@ public class Login {
         return student_id;
     }
 
-    public void setU_credit(String u_credit) {
+    public void setU_credit(int u_credit) {
         this.u_credit = u_credit;
     }
 
-    public String getU_credit() {
+    public int getU_credit() {
         return u_credit;
     }
 }

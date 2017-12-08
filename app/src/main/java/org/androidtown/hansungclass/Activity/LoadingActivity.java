@@ -23,7 +23,5 @@ public class LoadingActivity extends AppCompatActivity {
                 finish();
             }
         }, 1000);
-
-
     }
 }

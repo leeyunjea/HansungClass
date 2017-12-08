@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.androidtown.hansungclass.Adapter.HomeListAdapter;
 import org.androidtown.hansungclass.Adapter.MajorReadapter;
 import org.androidtown.hansungclass.Class.NotificationService;
+import org.androidtown.hansungclass.FirebaseClass.Login;
 import org.androidtown.hansungclass.FirebaseClass.Major;
 import org.androidtown.hansungclass.R;
 
@@ -47,7 +48,10 @@ public class HomeFragment extends Fragment {
     private String time;
     private String subject;
     private String ntime;
+    private DatabaseReference mDatabase;
     private NotificationService notificationService;
+    private SharedPreferences pref;
+    private String id[];
 
     public HomeFragment() {
         // Required empty public constructor
@@ -63,11 +67,27 @@ public class HomeFragment extends Fragment {
         total_credit = (TextView)view.findViewById(R.id.credit);
         day = (TextView)view.findViewById(R.id.day);
         listView = (ListView)view.findViewById(R.id.listView);
-
+        pref = getActivity().getSharedPreferences("ID", Activity.MODE_PRIVATE);
+        String name = pref.getString("IDemail","");
+        id = name.split("@");
         adapter = new HomeListAdapter(getContext(), R.layout.listhome_item);
         //listView.setAdapter(adapter);
-
-        total_credit.setText(MajorReadapter.total_credit + "점");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("파이어베이스").child("USER_INFO").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    Login login = child.getValue(Login.class);
+                    String name[] = login.getEmail().split("@");
+                    if(name[0].equals(id[0])){
+                        total_credit.setText(Integer.toString(login.getU_credit()));
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
         day.setText(doDayOfWeek() + "요일");
 
         getTodayData();
@@ -93,7 +113,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void getTodayData() {
-        SharedPreferences pref = getActivity().getSharedPreferences("ID", Activity.MODE_PRIVATE);
+        pref = getActivity().getSharedPreferences("ID", Activity.MODE_PRIVATE);
         String name = pref.getString("IDemail","");
         String id[] = name.split("@");
 
