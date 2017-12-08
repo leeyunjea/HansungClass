@@ -6,7 +6,7 @@ package org.androidtown.hansungclass.FirebaseClass;
 
 public class Major {
     public int color;
-    public String count;
+    public int count;
     public String credit;
     public String divide;
     public String nclass;
@@ -17,7 +17,7 @@ public class Major {
     public Major(){
 
     }
-    public Major(int color, String count,String credit,String divide, String nclass, String ntime, String professor, String subject) {
+    public Major(int color, int count,String credit,String divide, String nclass, String ntime, String professor, String subject) {
         this.color = color;
         this.count = count;
         this.credit = credit;
@@ -32,12 +32,12 @@ public class Major {
 
     public void setColor(int color) { this.color = color; }
 
-    public String getCount() {
-        return count;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public void setCount(String count) {
-        this.count = count;
+    public int getCount() {
+        return count;
     }
 
     public String getCredit() {

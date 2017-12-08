@@ -127,12 +127,10 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(context, "Email is not valid", Toast.LENGTH_LONG).show();
             return;
         }
-
         if(!isValidPasswd(password)) {
             Toast.makeText(context, "Password is not valid", Toast.LENGTH_LONG).show();
             return;
         }
-
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

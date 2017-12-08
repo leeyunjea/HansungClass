@@ -45,7 +45,7 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
         public TextView courseprofessor;
         public TextView coursenclass;
         public TextView coursentime;
-        public String count = "30";
+        private int count = 30;
         public String color = "0";
         private Context context;
         private MajorReadapter majorReadapter;
@@ -63,6 +63,7 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
         private boolean check;
         private HashMap<String, Object> majorHashMap;
         private Map<String,Object> changedata;
+        private Map<String,Object> changedata1;
         private int u_credit;
         private int total;
 
@@ -104,6 +105,7 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
                             total = login.getU_credit();
                         }
                     }
+                    u_credit = total;
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -167,7 +169,7 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
                     }
                     MajorReadapter.i++;
                     /*
-                       총학점 20학점 넘기면 수강신청 안댐!!
+                       총학점 20학점 넘기면 수강신청 안댐!! //성공
                        총수강인원이 30명을 넘을시 수강신청 안댐!
                      */
 
@@ -175,13 +177,19 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
                         Toast.makeText(context,"같은 시간대를 선택한 과목이 있습니다.",Toast.LENGTH_LONG).show();
                     }
                     else if(check == true && btn.getText().equals("신청")){
-                        Toast.makeText(context,"수강신청 성공!",Toast.LENGTH_LONG).show();
-                        changedata = new HashMap<String,Object>();
-                        total += Integer.parseInt(coursecredit.getText().toString());
-                        changedata.put("u_credit",total);
-                        mDatabase.child("파이어베이스").child("USER_INFO").child(email).updateChildren(changedata);
-                        mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(majorHashMap);
-                        btn.setText("취소");
+                        if(u_credit < 20) {
+                            Toast.makeText(context, "수강신청 성공!", Toast.LENGTH_LONG).show();
+                            changedata1 = new HashMap<String, Object>();
+                            changedata = new HashMap<String, Object>();
+                            total += Integer.parseInt(coursecredit.getText().toString());
+                            changedata.put("u_credit", total);
+                            mDatabase.child("파이어베이스").child("USER_INFO").child(email).updateChildren(changedata);
+                            mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(majorHashMap);
+                            btn.setText("취소");
+                        }
+                        else{
+                            Toast.makeText(context,"학점을 초과하였습니다.",Toast.LENGTH_LONG).show();
+                        }
                     }
                     else if(check == false && btn.getText().equals("취소")){
                         Toast.makeText(context, "수강신청 취소!", Toast.LENGTH_LONG).show();
