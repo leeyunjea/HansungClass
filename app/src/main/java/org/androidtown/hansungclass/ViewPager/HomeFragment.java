@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,13 +64,23 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
+
+
+
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         total_credit = (TextView)view.findViewById(R.id.credit);
         day = (TextView)view.findViewById(R.id.day);
         listView = (ListView)view.findViewById(R.id.listView);
         pref = getActivity().getSharedPreferences("ID", Activity.MODE_PRIVATE);
         String name = pref.getString("IDemail","");
         id = name.split("@");
-        adapter = new HomeListAdapter(getContext(), R.layout.listhome_item);
+        adapter = new HomeListAdapter(getActivity(), R.layout.listhome_item);
         //listView.setAdapter(adapter);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("파이어베이스").child("USER_INFO").addValueEventListener(new ValueEventListener() {
@@ -88,10 +99,7 @@ public class HomeFragment extends Fragment {
             }
         });
         day.setText(doDayOfWeek() + "요일");
-
         getTodayData();
-
-        return view;
     }
 
     private String doDayOfWeek() {
@@ -145,6 +153,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+
     public void todayNotifyAlarm(String ntime, String subject, String location) {
         String arr[] = ntime.split(" ");
         String time = arr[1];
@@ -156,119 +165,122 @@ public class HomeFragment extends Fragment {
             case "0":
                 Log.i("yunjae", "000000000000000");
                 notificationService = new NotificationService();
-                Intent intent0 = new Intent(getContext(), notificationService.getClass());
+                Intent intent0 = new Intent(getActivity(), notificationService.getClass());
                 intent0.putExtra("course", subject);
                 intent0.putExtra("location", location);
                 intent0.putExtra("time", times[0]);
-                getContext().startService(intent0);
+
+                getActivity().startService(intent0);
+
                 break;
             case "1":
                 Log.i("yunjae", "11111111111111");
+                notificationService = null;
                 notificationService = new NotificationService();
-                Intent intent1 = new Intent(getContext(), notificationService.getClass());
+                Intent intent1 = new Intent(getActivity().getApplicationContext(), NotificationService.class);
                 intent1.putExtra("course", subject);
                 intent1.putExtra("location", location);
                 intent1.putExtra("time", times[0]);
-                getContext().startService(intent1);
+                getActivity().startService(intent1);
                 break;
             case "2":
                 Log.i("yunjae", "222222222222222");
                 notificationService = new NotificationService();
-                Intent intent2 = new Intent(getContext(), notificationService.getClass());
+                Intent intent2 = new Intent(getActivity(), notificationService.getClass());
                 intent2.putExtra("course", subject);
                 intent2.putExtra("location", location);
                 intent2.putExtra("time", times[0]);
-                getContext().startService(intent2);
+                getActivity().startService(intent2);
                 break;
             case "3":
                 Log.i("yunjae", "333333333333333");
                 notificationService = new NotificationService();
-                Intent intent3 = new Intent(getContext(), notificationService.getClass());
+                Intent intent3 = new Intent(getActivity(), notificationService.getClass());
                 intent3.putExtra("course", subject);
                 intent3.putExtra("location", location);
                 intent3.putExtra("time", times[0]);
-                getContext().startService(intent3);
+                getActivity().startService(intent3);
                 break;
             case "4":
                 Log.i("yunjae", "4444444444444444");
                 notificationService = new NotificationService();
-                Intent intent4 = new Intent(getContext(), notificationService.getClass());
+                Intent intent4 = new Intent(getActivity(), notificationService.getClass());
                 intent4.putExtra("course", subject);
                 intent4.putExtra("location", location);
                 intent4.putExtra("time", times[0]);
-                getContext().startService(intent4);
+                getActivity().startService(intent4);
                 break;
             case "5":
                 Log.i("yunjae", "55555555555555");
                 notificationService = new NotificationService();
-                Intent intent5 = new Intent(getContext(), notificationService.getClass());
+                Intent intent5 = new Intent(getActivity(), notificationService.getClass());
                 intent5.putExtra("course", subject);
                 intent5.putExtra("location", location);
                 intent5.putExtra("time", times[0]);
-                getContext().startService(intent5);
+                getActivity().startService(intent5);
                 break;
             case "6":
                 Log.i("yunjae", "66666666666666");
                 notificationService = new NotificationService();
-                Intent intent6 = new Intent(getContext(), notificationService.getClass());
+                Intent intent6 = new Intent(getActivity(), notificationService.getClass());
                 intent6.putExtra("course", subject);
                 intent6.putExtra("location", location);
                 intent6.putExtra("time", times[0]);
-                getContext().startService(intent6);
+                getActivity().startService(intent6);
                 break;
             case "7":
                 Log.i("yunjae", "777777777777777");
                 notificationService = new NotificationService();
-                Intent intent7 = new Intent(getContext(), notificationService.getClass());
+                Intent intent7 = new Intent(getActivity(), notificationService.getClass());
                 intent7.putExtra("course", subject);
                 intent7.putExtra("location", location);
                 intent7.putExtra("time", times[0]);
-                getContext().startService(intent7);
+                getActivity().startService(intent7);
                 break;
             case "8":
                 Log.i("yunjae", "888888888888888");
                 notificationService = new NotificationService();
-                Intent intent8 = new Intent(getContext(), notificationService.getClass());
+                Intent intent8 = new Intent(getActivity(), notificationService.getClass());
                 intent8.putExtra("course", subject);
                 intent8.putExtra("location", location);
                 intent8.putExtra("time", times[0]);
-                getContext().startService(intent8);
+                getActivity().startService(intent8);
                 break;
             case "9":
                 Log.i("yunjae", "99999999999999");
                 notificationService = new NotificationService();
-                Intent intent9 = new Intent(getContext(), notificationService.getClass());
+                Intent intent9 = new Intent(getActivity(), notificationService.getClass());
                 intent9.putExtra("course", subject);
                 intent9.putExtra("location", location);
                 intent9.putExtra("time", times[0]);
-                getContext().startService(intent9);
+                getActivity().startService(intent9);
                 break;
             case "10":
                 Log.i("yunjae", "10101010");
                 notificationService = new NotificationService();
-                Intent intent10 = new Intent(getContext(), notificationService.getClass());
+                Intent intent10 = new Intent(getActivity(), notificationService.getClass());
                 intent10.putExtra("course", subject);
                 intent10.putExtra("location", location);
                 intent10.putExtra("time", times[0]);
-                getContext().startService(intent10);
+                getActivity().startService(intent10);
                 break;
             case "11":
                 Log.i("yunjae", "11111111");
                 notificationService = new NotificationService();
-                Intent intent11 = new Intent(getContext(), notificationService.getClass());
+                Intent intent11 = new Intent(getActivity(), notificationService.getClass());
                 intent11.putExtra("course", subject);
                 intent11.putExtra("location", location);
                 intent11.putExtra("time", times[0]);
-                getContext().startService(intent11);
+                getActivity().startService(intent11);
                 break;
             case "12":
                 Log.i("yunjae", "12121212");
                 notificationService = new NotificationService();
-                Intent intent12 = new Intent(getContext(), notificationService.getClass());
+                Intent intent12 = new Intent(getActivity(), notificationService.getClass());
                 intent12.putExtra("course", subject);
                 intent12.putExtra("location", location);
                 intent12.putExtra("time", times[0]);
-                getContext().startService(intent12);
+                getActivity().startService(intent12);
                 break;
         }
     }

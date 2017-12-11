@@ -1,5 +1,6 @@
 package org.androidtown.hansungclass.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -91,7 +92,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
-                finish();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

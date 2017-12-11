@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HansungClass.iml" filepath="$PROJECT_DIR$/HansungClass.iml" />
+      <module fileurl="file://C:\Users\hscom-019\StudioProjects\HansungClass2\HansungClass.iml" filepath="C:\Users\hscom-019\StudioProjects\HansungClass2\HansungClass.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HansungClass2.iml" filepath="$PROJECT_DIR$/HansungClass2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -42,13 +42,15 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
         public TextView courseprofessor;
         public TextView coursenclass;
         public TextView coursentime;
-        private int count = 30;
+        private int count = 2;
+        private int llimitCount;
         public String color = "0";
         private Context context;
         private MajorReadapter majorReadapter;
         private DatabaseReference mDatabase;
         private DatabaseReference databaseReference;
         private DatabaseReference mConditionRef;
+        private DatabaseReference subjectCount;
         private Button btn;
         private int colors[] = new int[15];
         private Set<String> keys;
@@ -61,10 +63,11 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
         private HashMap<String, Object> majorHashMap;
         private Map<String,Object> changedata;
         private Map<String,Object> changedata1;
+        private Map<String,Object> changedata2;
         private int u_credit;
         private int total;
 
-        public ViewHolder(Context context, View itemView,MajorReadapter majorReadapter){
+        public ViewHolder(Context context, View itemView, final MajorReadapter majorReadapter){
             super(itemView);
             this.context = context;
             this.majorReadapter = majorReadapter;
@@ -78,14 +81,15 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
             mDatabase = FirebaseDatabase.getInstance().getReference();
             mConditionRef = mDatabase.child("파이어베이스").child("강의").child(email);
             mConditionRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot child : dataSnapshot.getChildren()){
-                        major = child.getValue(Major.class);
-                        if(coursesubject.getText().equals(major.getSubject())){
-                            btn.setText("취소");
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot child : dataSnapshot.getChildren()){
+                            major = child.getValue(Major.class);
+                            if(coursesubject.getText().equals(major.getSubject())){
+                                count = major.getCount();
+                                btn.setText("취소");
+                            }
                         }
-                    }
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -129,6 +133,7 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
         public void onClick(View v) {
             mDatabase = FirebaseDatabase.getInstance().getReference();
             mConditionRef = mDatabase.child("파이어베이스").child("강의").child(email);
+            llimitCount = 0;
             majorHashMap = new HashMap<>();
             majorHashMap.put("color", colors[MajorReadapter.i]);
             majorHashMap.put("count",count);
@@ -176,13 +181,32 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
                     else if(check == true && btn.getText().equals("신청")){
                         if(u_credit < 20) {
                             Toast.makeText(context, "수강신청 성공!", Toast.LENGTH_LONG).show();
-                            changedata1 = new HashMap<String, Object>();
+                            //changedata1 = new HashMap<String, Object>();
+                            //count--;
+                            //changedata1.put("count",count);
+                            //llimitCount = 2;
+                            //mDatabase.child("university").child("1").child("major").child()
                             changedata = new HashMap<String, Object>();
                             total += Integer.parseInt(coursecredit.getText().toString());
                             changedata.put("u_credit", total);
                             mDatabase.child("파이어베이스").child("USER_INFO").child(email).updateChildren(changedata);
                             mDatabase.child("파이어베이스").child("강의").child(email).child(coursesubject.getText().toString()).setValue(majorHashMap);
+
+
+                            mDatabase.child("university").child("2018").child("1").child("major").child("computer").child("android").child("count").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    int count = dataSnapshot.getValue(Integer.class);
+                                    mDatabase.child("university").child("2018").child("1").child("major").child("computer").child("android").child("count").setValue(--count);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                             btn.setText("취소");
+
                         }
                         else{
                             Toast.makeText(context,"학점을 초과하였습니다.",Toast.LENGTH_LONG).show();
@@ -198,7 +222,6 @@ public class MajorReadapter extends RecyclerView.Adapter<MajorReadapter.ViewHold
                         btn.setText("신청");
                         check = true;
                     }
-
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
