@@ -20,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.androidtown.hansungclass.Adapter.HomeListAdapter;
-import org.androidtown.hansungclass.Adapter.MajorReadapter;
 import org.androidtown.hansungclass.Class.NotificationService;
 import org.androidtown.hansungclass.FirebaseClass.Login;
 import org.androidtown.hansungclass.FirebaseClass.Major;
@@ -173,26 +172,103 @@ public class HomeFragment extends Fragment {
                 getContext().startService(intent1);
                 break;
             case "2":
+                Log.i("yunjae", "222222222222222");
+                notificationService = new NotificationService();
+                Intent intent2 = new Intent(getContext(), notificationService.getClass());
+                intent2.putExtra("course", subject);
+                intent2.putExtra("location", location);
+                intent2.putExtra("time", times[0]);
+                getContext().startService(intent2);
                 break;
             case "3":
+                Log.i("yunjae", "333333333333333");
+                notificationService = new NotificationService();
+                Intent intent3 = new Intent(getContext(), notificationService.getClass());
+                intent3.putExtra("course", subject);
+                intent3.putExtra("location", location);
+                intent3.putExtra("time", times[0]);
+                getContext().startService(intent3);
                 break;
             case "4":
+                Log.i("yunjae", "4444444444444444");
+                notificationService = new NotificationService();
+                Intent intent4 = new Intent(getContext(), notificationService.getClass());
+                intent4.putExtra("course", subject);
+                intent4.putExtra("location", location);
+                intent4.putExtra("time", times[0]);
+                getContext().startService(intent4);
                 break;
             case "5":
+                Log.i("yunjae", "55555555555555");
+                notificationService = new NotificationService();
+                Intent intent5 = new Intent(getContext(), notificationService.getClass());
+                intent5.putExtra("course", subject);
+                intent5.putExtra("location", location);
+                intent5.putExtra("time", times[0]);
+                getContext().startService(intent5);
                 break;
             case "6":
+                Log.i("yunjae", "66666666666666");
+                notificationService = new NotificationService();
+                Intent intent6 = new Intent(getContext(), notificationService.getClass());
+                intent6.putExtra("course", subject);
+                intent6.putExtra("location", location);
+                intent6.putExtra("time", times[0]);
+                getContext().startService(intent6);
                 break;
             case "7":
+                Log.i("yunjae", "777777777777777");
+                notificationService = new NotificationService();
+                Intent intent7 = new Intent(getContext(), notificationService.getClass());
+                intent7.putExtra("course", subject);
+                intent7.putExtra("location", location);
+                intent7.putExtra("time", times[0]);
+                getContext().startService(intent7);
                 break;
             case "8":
+                Log.i("yunjae", "888888888888888");
+                notificationService = new NotificationService();
+                Intent intent8 = new Intent(getContext(), notificationService.getClass());
+                intent8.putExtra("course", subject);
+                intent8.putExtra("location", location);
+                intent8.putExtra("time", times[0]);
+                getContext().startService(intent8);
                 break;
             case "9":
+                Log.i("yunjae", "99999999999999");
+                notificationService = new NotificationService();
+                Intent intent9 = new Intent(getContext(), notificationService.getClass());
+                intent9.putExtra("course", subject);
+                intent9.putExtra("location", location);
+                intent9.putExtra("time", times[0]);
+                getContext().startService(intent9);
                 break;
             case "10":
+                Log.i("yunjae", "10101010");
+                notificationService = new NotificationService();
+                Intent intent10 = new Intent(getContext(), notificationService.getClass());
+                intent10.putExtra("course", subject);
+                intent10.putExtra("location", location);
+                intent10.putExtra("time", times[0]);
+                getContext().startService(intent10);
                 break;
             case "11":
+                Log.i("yunjae", "11111111");
+                notificationService = new NotificationService();
+                Intent intent11 = new Intent(getContext(), notificationService.getClass());
+                intent11.putExtra("course", subject);
+                intent11.putExtra("location", location);
+                intent11.putExtra("time", times[0]);
+                getContext().startService(intent11);
                 break;
             case "12":
+                Log.i("yunjae", "12121212");
+                notificationService = new NotificationService();
+                Intent intent12 = new Intent(getContext(), notificationService.getClass());
+                intent12.putExtra("course", subject);
+                intent12.putExtra("location", location);
+                intent12.putExtra("time", times[0]);
+                getContext().startService(intent12);
                 break;
         }
     }

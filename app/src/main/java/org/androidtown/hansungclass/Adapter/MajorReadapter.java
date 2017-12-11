@@ -21,14 +21,11 @@ import org.androidtown.hansungclass.FirebaseClass.Login;
 import org.androidtown.hansungclass.FirebaseClass.Major;
 import org.androidtown.hansungclass.R;
 
-import java.net.Inet4Address;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import static java.lang.Integer.parseInt;
 
 /**
  * Created by hscom-019 on 2017-11-19.

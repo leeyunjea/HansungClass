@@ -1,6 +1,7 @@
 package org.androidtown.hansungclass.ViewPager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,12 +19,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.androidtown.hansungclass.Class.ArrayText;
+import org.androidtown.hansungclass.Dialog.TableAlertDialog;
 import org.androidtown.hansungclass.FirebaseClass.Major;
 import org.androidtown.hansungclass.R;
 
 import java.util.Random;
 
-public class TableFragment extends Fragment {
+public class TableFragment extends Fragment{
     private DatabaseReference databaseReference;
     private DatabaseReference mConditionRef;
     private String times;
@@ -34,6 +36,7 @@ public class TableFragment extends Fragment {
     private Random random;
     public int i = 0;
     private int number;
+
     public TableFragment() {
     }
     @Override
@@ -131,6 +134,8 @@ public class TableFragment extends Fragment {
         }
     }
 
+
+
     public void resetTime(TextView tv,Major major){
         String m = major.getNtime();
         System.out.println("resetTime " + m);
@@ -153,7 +158,31 @@ public class TableFragment extends Fragment {
                     tv.setTextColor(Color.BLACK);
                 }
                 tv.setBackgroundColor(color1);
+                tv.setOnClickListener(new Listener(tv, major.getSubject(), major.getProfessor(), major.getNclass()));
             }
+
+        }
+    }
+    class Listener implements View.OnClickListener {
+        private TextView tv;
+        private String subject;
+        private String professor;
+        private String nclass;
+
+        public Listener(TextView tv,String subject,String professor, String nclass) {
+            this.tv = tv;
+            this.subject = subject;
+            this.professor = professor;
+            this.nclass = nclass;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getContext(), TableAlertDialog.class);
+            intent.putExtra("subject", subject);
+            intent.putExtra("professor", professor);
+            intent.putExtra("nclass", nclass);
+            startActivity(intent);
         }
     }
 }

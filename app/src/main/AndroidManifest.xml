@@ -40,7 +40,11 @@
         <service
             android:name=".Class.NotificationService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".Dialog.TableAlertDialog"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            ></activity>
     </application>
 
 </manifest>
